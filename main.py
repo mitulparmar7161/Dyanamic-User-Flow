@@ -4,9 +4,11 @@ from typing import List, Optional, Union
 import databases
 from sqlalchemy import create_engine, Column, String, Table, MetaData
 from passlib.context import CryptContext
+from fastapi.openapi.utils import get_openapi
+import yaml
 
 DATABASE_URL = "sqlite:///./test.db"
-SECRET_KEY = "your-secret-key"
+SECRET_KEY = "password-secret-key"
 PASSWORD_HASH_ALGORITHM = "bcrypt"
 
 database = databases.Database(DATABASE_URL)
@@ -142,3 +144,20 @@ async def delete_user(user_id: str):
     query = users.delete().where(users.c.id == user_id)
     await database.execute(query)
     return {"message": "User deleted"}
+
+def custom_openapi():
+    if app.openapi_schema:
+        return app.openapi_schema
+    openapi_schema = get_openapi(
+        title="Dyanamic User Flow API Documentation",
+        version="1.0.0",
+        description="This is the API documentation for the Dyanamic User Flow API. It provides endpoints to create, read, update and delete users.",
+        routes=app.routes,
+    )
+    app.openapi_schema = openapi_schema
+    return app.openapi_schema
+
+openapi_schema = custom_openapi()
+
+with open("api_documentation.yaml", "w") as yaml_file:
+    yaml.dump(openapi_schema, yaml_file)
