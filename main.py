@@ -159,5 +159,5 @@ def custom_openapi():
 
 openapi_schema = custom_openapi()
 
-with open("api_documentation.yaml", "w") as yaml_file:
+with open("src/api_documentation.yaml", "w") as yaml_file:
     yaml.dump(openapi_schema, yaml_file)

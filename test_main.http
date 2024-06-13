@@ -1,11 +1,52 @@
-# Test your FastAPI endpoints
+### Create User with Form1
+POST http://127.0.0.1:8000/add_user
+Content-Type: application/json
 
-GET http://127.0.0.1:8000/
-Accept: application/json
+{
+    "f_name": "John",
+    "l_name": "Doe",
+    "company_name": "Example Inc.",
+    "email": "john.doe@example.com",
+    "password": "password123"
+}
 
-###
+### Create User with Form2
+POST http://127.0.0.1:8000/add_user
+Content-Type: application/json
 
-GET http://127.0.0.1:8000/hello/User
-Accept: application/json
+{
+    "f_name": "Jane",
+    "l_name": "Doe",
+    "mobile": "1234567890",
+    "hashtag": "#janedoe"
+}
 
-###
+### Create User with Form3
+POST http://127.0.0.1:8000/add_user
+Content-Type: application/json
+
+{
+    "f_name": "Alice",
+    "l_name": "Smith",
+    "mobile": "0987654321",
+    "dob": "1990-01-01"
+}
+
+### Get All Users
+GET http://127.0.0.1:8000/get_users
+
+### Get User by ID
+GET http://127.0.0.1:8000/get_user/1
+
+### Update User
+PATCH http://127.0.0.1:8000/update_user/1
+Content-Type: application/json
+
+{
+    "f_name": "John",
+    "l_name": "Updated",
+    "email": "john.updated@example.com"
+}
+
+### Delete User
+DELETE http://127.0.0.1:8000/delete_user/1
